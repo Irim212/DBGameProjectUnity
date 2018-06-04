@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
         public static int _currentHealth = 100;
         public static int maxKi = 100;
         public static int _currentKi = 100;
+        public int meleeDmg = 10;
 
         public static Action<int> playerHealthChange;
 
@@ -43,13 +44,13 @@ public class Player : MonoBehaviour {
     {
         if(transform.position.y <= fallBoundary)
         {
-            DamagePlayer(10);
+            Damage(10);
         }
 
         
     }
 
-    public void DamagePlayer(int dmgAmount)
+    public void Damage(int dmgAmount)
     {
         playerStats.currentHealth -= dmgAmount;
         PlayerStats.playerHealthChange(playerStats.currentHealth);

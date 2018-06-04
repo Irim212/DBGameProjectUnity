@@ -13,11 +13,14 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed = 3f;
     public float jumpForce = 3f;
 
+    public float attackTimeCd = 0.5f;
+    public float cdTime;
+
     //animator - obsługuje przejścia animatora
     Animator anim;
 
+    public Collider2D attackTrigger;
     
-
     //zmienne sprawdzania uziemienia
     bool holdAtk = false;
     bool canWalk = true;
@@ -107,20 +110,25 @@ public class PlayerController : MonoBehaviour
         //ATTACK MELEE
         if (Input.GetKeyDown(KeyCode.I))
         {
-            canWalk = false;
-            rb.velocity = new Vector2(0, rb.velocity.y);
             holdAtk = true;
-        } else if ((Input.GetKeyDown(KeyCode.I) && Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.I) && Input.GetKeyDown(KeyCode.A)))
-        {
-            canWalk = false;
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            holdAtk = true;
+
+            attackTrigger.enabled = true;
+
+            cdTime = Time.time + attackTimeCd;
+
+            if(cdTime <= Time.time)
+            {
+                attackTrigger.enabled = false;
+            }
+
+
         }
-        else if (Input.GetKeyUp(KeyCode.I))
+        if (Input.GetKeyUp(KeyCode.I))
         {
             holdAtk = false;
-            canWalk = true;
+            attackTrigger.enabled = false;
         }
+
 
         if (rb.velocity.y == 0)
         {
