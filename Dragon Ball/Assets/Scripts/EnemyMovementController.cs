@@ -10,6 +10,7 @@ public class EnemyMovementController : MonoBehaviour {
 
     public GameObject enemyGraphics;
     public GameObject player;
+    public Canvas canvas;
 
     //facing
     bool canFlip = true;
@@ -53,8 +54,11 @@ public class EnemyMovementController : MonoBehaviour {
     {
         if (!canFlip) return;
         float facingX = enemyGraphics.transform.localScale.x;
+        float facingXCanvas = canvas.transform.localScale.x;
         facingX *= -1f;
+        facingXCanvas *= -1f;
         enemyGraphics.transform.localScale = new Vector3(facingX, enemyGraphics.transform.localScale.y, enemyGraphics.transform.localScale.z);
+        canvas.transform.localScale = new Vector3(facingXCanvas, canvas.transform.localScale.y, canvas.transform.localScale.z);
         facingRight = !facingRight;
 
     }

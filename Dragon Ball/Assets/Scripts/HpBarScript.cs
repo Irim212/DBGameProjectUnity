@@ -13,13 +13,9 @@ public class HpBarScript : MonoBehaviour {
     public float amountHp = Player.PlayerStats._currentHealth;
 
 
-            
-
-
-
 	// Use this for initialization
 	void Start () {
-        Player.PlayerStats.playerHealthChange += (newHealth) =>
+        Player.PlayerStats.playerChange += (newHealth) =>
         {
             amountHp = newHealth;
         };

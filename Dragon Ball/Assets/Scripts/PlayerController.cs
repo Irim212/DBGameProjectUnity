@@ -13,11 +13,10 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed = 3f;
     public float jumpForce = 3f;
 
-    public float attackTimeCd = 0.5f;
-    public float cdTime;
-
     //animator - obsługuje przejścia animatora
     Animator anim;
+
+    Player player = new Player();
 
     public Collider2D attackTrigger;
     
@@ -38,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        attackTrigger.enabled = false;
     }
 
     void Update()
@@ -79,10 +79,9 @@ public class PlayerController : MonoBehaviour
         //KI BLAST
         if (Input.GetKeyDown(KeyCode.O))
         {
-            if(!kiHold && !guard)
+            if(!kiHold && !guard && player.playerStats.currentKi>10)
             {
                 kiBlastHold = true;
-                rb.velocity = new Vector2(0, 0);
             }
             
         }
@@ -111,22 +110,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             holdAtk = true;
-
-            attackTrigger.enabled = true;
-
-            cdTime = Time.time + attackTimeCd;
-
-            if(cdTime <= Time.time)
-            {
-                attackTrigger.enabled = false;
-            }
-
-
         }
         if (Input.GetKeyUp(KeyCode.I))
         {
             holdAtk = false;
-            attackTrigger.enabled = false;
         }
 
 
@@ -145,6 +132,21 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
+    }
+
+    void Attack()
+    {
+        attackTrigger.enabled = true;
+    }
+
+    void noAttack()
+    {
+        attackTrigger.enabled = false;
+    }
+
+    void addKi()
+    {
+        player.playerStats.currentKi += 1;
     }
 
     void Flip()

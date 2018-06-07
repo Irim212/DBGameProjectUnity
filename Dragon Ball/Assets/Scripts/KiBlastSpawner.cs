@@ -6,6 +6,8 @@ using UnityEngine;
 public class KiBlastSpawner : MonoBehaviour {
 
     public GameObject KiBlast;
+
+    Player player = new Player();
     
     public Transform SpawnPoint;
     private float timeStamp;
@@ -21,8 +23,12 @@ public class KiBlastSpawner : MonoBehaviour {
                 
                 if(r.collider == null)
                 {
-                    Instantiate(KiBlast, SpawnPoint.position, Quaternion.identity);
-                    timeStamp = Time.time + coolDown;
+                    if(player.playerStats.currentKi>10)
+                    {
+                        Instantiate(KiBlast, SpawnPoint.position, Quaternion.identity);
+                        player.KiUse(player.playerStats.kiBlastCost);
+                        timeStamp = Time.time + coolDown;
+                    }
                 }   
             }
        }

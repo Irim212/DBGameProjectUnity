@@ -6,8 +6,6 @@ public class AttackTrigger : MonoBehaviour {
 
     Player player = new Player();
 
-    public int dmg = 20;
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.isTrigger != true && col.CompareTag("Enemy"))
@@ -16,5 +14,4 @@ public class AttackTrigger : MonoBehaviour {
             enemy.Damage(player.playerStats.meleeDmg);
         }
     }
-
 }

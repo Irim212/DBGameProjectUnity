@@ -2,22 +2,6 @@
 
 public class CameraFollow : MonoBehaviour {
 
-    /*public Transform target;
-    public float smoothSpeed = 0.125f;
-    public float yPosRestriction = -1f;
-    public Vector3 offset;
-
-    void LateUpdate()
-    {
-        if(target == null)
-        {
-            return;
-        }
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
-    }*/
-
     public Transform target;
     public float damping = 1;
     public float lookAheadFactor = 3;
