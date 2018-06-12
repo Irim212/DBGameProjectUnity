@@ -58,12 +58,21 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            
             if (jumpAmount <= 1)
             {
-                GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
-                jumpAmount++;
+                Debug.Log("LECE");
                 grounded = false;
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+                
+                jumpAmount++;
             }
+        }
+
+        //Transform
+        if((Input.GetKeyDown(KeyCode.P) && Input.GetKeyDown(KeyCode.O) && Input.GetKeyDown(KeyCode.I)))
+        {
+            anim.SetTrigger("Transform");
         }
 
 
@@ -121,6 +130,10 @@ public class PlayerController : MonoBehaviour
         {
             jumpAmount = 0;
             grounded = true;
+
+        } else if (rb.velocity.y != 0 )
+        {
+            grounded = false;
         }
 
         if (horizontalMove > 0 && !facingRight)
