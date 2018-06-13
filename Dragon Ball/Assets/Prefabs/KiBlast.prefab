@@ -75,7 +75,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 0.78
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.02, y: -0.03}
@@ -125,6 +125,7 @@ MonoBehaviour:
   whatCollideWith:
     serializedVersion: 2
     m_Bits: 1808
+  isDamaged: 0
 --- !u!114 &114273523686547690
 MonoBehaviour:
   m_ObjectHideFlags: 1

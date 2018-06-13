@@ -28,7 +28,7 @@ public class KiBlastDestroy : MonoBehaviour {
 
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnTriggerEnter2D(Collider2D coll)
     {
 
         if (whatCollideWith == (whatCollideWith | (1 << coll.gameObject.layer)))
@@ -45,11 +45,6 @@ public class KiBlastDestroy : MonoBehaviour {
             isDamaged = true;
 
         }
-    }
-
-    void OnCollisionExit2D(Collision2D coll)
-    {
-        isDamaged = false;
     }
 
 }

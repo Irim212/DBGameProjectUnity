@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KiBlastFire : MonoBehaviour {
 
-    public float velXR = 5f;
+    public float velXR = 200f;
     public float velXL = -5f;
     Rigidbody2D rb;
     SpriteRenderer spriteKi;
@@ -15,7 +15,8 @@ public class KiBlastFire : MonoBehaviour {
         spriteKi = GetComponent<SpriteRenderer>();
         if (PlayerController.facingRight)
         {
-            rb.velocity = new Vector2(velXR, 0);
+            //rb.velocity = new Vector2(velXR, 0);
+            rb.AddForce(new Vector2(velXR, 0));
         }
         else if (!PlayerController.facingRight)
         {

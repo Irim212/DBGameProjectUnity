@@ -7,6 +7,8 @@ public class EnemyMovementController : MonoBehaviour {
     public float speed = 1f;
     public float distance;
 
+    private float rayCastOffset;
+
     private bool movingRight = true;
 
     bool attack = false;
@@ -34,26 +36,26 @@ public class EnemyMovementController : MonoBehaviour {
     void Start() {
         enemyAnimator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        BoxCollider2D cellCollider = GetComponent<BoxCollider2D>();
+        rayCastOffset = cellCollider.bounds.extents.x / 2 + 0.3f;
     }
 
     // Update is called once per frame
     void Update() {
 
         startCast = transform.position;
-        startCast.x -= 0.5f;
+        startCast.x += rayCastOffset;
         endCast = startCast;
         endCast.x -= 12.0f;
         meleeCast = startCast;
         meleeCast.x -= 2f;
 
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
         groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
 
         //WALK LINE
         if (attack == false)
         {
-            Debug.DrawLine(startCast, endCast, Color.green);
-            enemyView = Physics2D.Linecast(startCast, endCast);
+            enemyView = Physics2D.Raycast(startCast, endCast);
             if (enemyView.collider != null)
             {
                 if (enemyView.collider.name == "Player")
@@ -65,9 +67,9 @@ public class EnemyMovementController : MonoBehaviour {
         }
 
         //ATTACK LINE
+        enemyMelee = Physics2D.Raycast(startCast, Vector2.right, 2.5f);
         Debug.DrawLine(startCast, meleeCast, Color.red);
-        enemyMelee = Physics2D.Linecast(startCast, meleeCast);
-        if (enemyMelee.collider.name != null)
+        if (enemyMelee.collider != null)
         {
             if(enemyMelee.collider.name == "Player")
             {
@@ -77,28 +79,32 @@ public class EnemyMovementController : MonoBehaviour {
                     //Bug attack player
                     Debug.Log("Player w zasięgu melee");
                 }
+            } else
+            {
+                attack = false;
+            }
+            Debug.Log(enemyMelee.collider.name);
+        }
+
+        if (groundInfo.collider == false)
+        {
+            if (movingRight == true)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                movingRight = false;
+                flipGUI();
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                movingRight = true;
+                flipGUI();
             }
         }
 
-        
 
-        if(groundInfo.collider == false)
-        {
-            
-                if (movingRight == true)
-                {
-                    transform.eulerAngles = new Vector3(0, -180, 0);
-                    movingRight = false;
-                    flipGUI();
-                }
-                else
-                {
-                    transform.eulerAngles = new Vector3(0, 0, 0);
-                    movingRight = true;
-                    flipGUI();
-                }
- 
-        }
+
+
 
         /*
         if (Time.time > nextFlipChance)
@@ -117,6 +123,11 @@ public class EnemyMovementController : MonoBehaviour {
              nextFlipChance = Time.time + flipTime;
          }*/
 
+    }
+
+    void FixedUpdate()
+    {
+        transform.Translate(Vector2.right * speed);
     }
 
     void flipFacing()
