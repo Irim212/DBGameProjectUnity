@@ -61,10 +61,8 @@ public class PlayerController : MonoBehaviour
             
             if (jumpAmount <= 1)
             {
-                Debug.Log("LECE");
                 grounded = false;
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
-                
                 jumpAmount++;
             }
         }
