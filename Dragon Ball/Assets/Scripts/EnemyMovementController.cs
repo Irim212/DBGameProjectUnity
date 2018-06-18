@@ -52,10 +52,18 @@ public class EnemyMovementController : MonoBehaviour {
 
         groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
 
+        /*
         //WALK LINE
         if (attack == false)
         {
-            enemyView = Physics2D.Raycast(startCast, endCast);
+            if(movingRight==true)
+            {
+                enemyView = Physics2D.Raycast(startCast, endCast * -1);
+            }
+            else{
+                enemyView = Physics2D.Raycast(startCast, endCast);
+            }
+            
             if (enemyView.collider != null)
             {
                 if (enemyView.collider.name == "Player")
@@ -67,8 +75,20 @@ public class EnemyMovementController : MonoBehaviour {
         }
 
         //ATTACK LINE
-        enemyMelee = Physics2D.Raycast(startCast, Vector2.right, 2.5f);
-        Debug.DrawLine(startCast, meleeCast, Color.red);
+        if (movingRight == true)
+        {
+            Vector2 endPoint = startCast;
+            endPoint.x -= 2.5f;
+            enemyMelee = Physics2D.Raycast(startCast, Vector2.left, 2.5f);
+            Debug.DrawLine(startCast, endPoint);
+        }
+        else
+        {
+            Vector2 endPoint = startCast;
+            endPoint.x += 2.5f;
+            enemyMelee = Physics2D.Raycast(startCast, Vector2.right, 2.5f);
+            Debug.DrawLine(startCast, endPoint);
+        }
         if (enemyMelee.collider != null)
         {
             if(enemyMelee.collider.name == "Player")
@@ -84,7 +104,7 @@ public class EnemyMovementController : MonoBehaviour {
                 attack = false;
             }
             Debug.Log(enemyMelee.collider.name);
-        }
+        } */
 
         if (groundInfo.collider == false)
         {
@@ -102,6 +122,11 @@ public class EnemyMovementController : MonoBehaviour {
             }
         }
 
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        if(distanceToPlayer  < 2f)
+        {
+            Debug.Log("JEST TUTAJ PLEJER");
+        }
 
 
 

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -59,6 +58,7 @@ public class Player : MonoBehaviour {
         {
             GameMaster.KillPlayer(this);
             Debug.Log("You are dead");
+            SceneManager.LoadScene(0);
         }
     }
 
