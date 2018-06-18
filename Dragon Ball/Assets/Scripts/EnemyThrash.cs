@@ -11,7 +11,7 @@ public class EnemyThrash : MonoBehaviour {
         public static int level = 1;
         public int MaxHP = 100 * level;
         private int _currentHealth;
-        public int damage = 5 * level;
+        public int damage = 10 * level;
 
         public static Action<int> enemyHealthChange = changeEnemyHealth;
 
@@ -33,7 +33,7 @@ public class EnemyThrash : MonoBehaviour {
         }
     }
 
-    EnemyStat enemyStat = new EnemyStat();
+    public EnemyStat enemyStat = new EnemyStat();
 
     [SerializeField]
     private StatusIndicator statusIndicator;

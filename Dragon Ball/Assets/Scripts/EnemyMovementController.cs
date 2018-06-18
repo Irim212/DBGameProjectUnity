@@ -11,6 +11,8 @@ public class EnemyMovementController : MonoBehaviour {
 
     private bool movingRight = true;
 
+    bool atkMelee;
+
     bool attack = false;
     Vector2 startCast, endCast, meleeCast, kiCast;
 
@@ -21,8 +23,11 @@ public class EnemyMovementController : MonoBehaviour {
     public Canvas canvas;
     public Transform groundDetection;
     
+    
 
     RaycastHit2D groundInfo, enemyView, enemyMelee, enemyKiBlast;
+
+    public Collider2D attackTrigger;
 
     //facing
     bool canFlip = true;
@@ -38,10 +43,13 @@ public class EnemyMovementController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         BoxCollider2D cellCollider = GetComponent<BoxCollider2D>();
         rayCastOffset = cellCollider.bounds.extents.x / 2 + 0.3f;
+        attackTrigger.enabled = false;
     }
 
     // Update is called once per frame
     void Update() {
+
+        enemyAnimator.SetBool("meleeAtk", atkMelee);
 
         startCast = transform.position;
         startCast.x += rayCastOffset;
@@ -106,6 +114,7 @@ public class EnemyMovementController : MonoBehaviour {
             Debug.Log(enemyMelee.collider.name);
         } */
 
+        
         if (groundInfo.collider == false)
         {
             if (movingRight == true)
@@ -121,11 +130,9 @@ public class EnemyMovementController : MonoBehaviour {
                 flipGUI();
             }
         }
-
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if(distanceToPlayer  < 2f)
+        else
         {
-            Debug.Log("JEST TUTAJ PLEJER");
+            Melee();
         }
 
 
@@ -173,5 +180,32 @@ public class EnemyMovementController : MonoBehaviour {
         float facingXCanvas = canvas.transform.localScale.x;
         facingXCanvas *= -1f;
         canvas.transform.localScale = new Vector3(facingXCanvas, canvas.transform.localScale.y, canvas.transform.localScale.z);
+    }
+
+    void Attack()
+    {
+        attackTrigger.enabled = true;
+    }
+
+    void noAttack()
+    {
+        attackTrigger.enabled = false;
+    }
+
+    void Melee()
+    {
+        if (player != null)
+        {
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
+            if (distanceToPlayer < 2f)
+            {
+                atkMelee = true;
+            }
+            else
+            {
+                atkMelee = false;
+            }
+        }
     }
 }
