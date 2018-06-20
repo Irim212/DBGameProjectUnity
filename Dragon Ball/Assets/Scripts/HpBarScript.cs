@@ -9,12 +9,13 @@ public class HpBarScript : MonoBehaviour {
 
     public Image content;
 
-    public float maxHp = Player.PlayerStats.MaxHP;
+    public float maxHp;
     public float amountHp = Player.PlayerStats._currentHealth;
 
 
 	// Use this for initialization
 	void Start () {
+        maxHp = PlayerPrefs.GetInt("MaxHP"); 
         Player.PlayerStats.playerChange += (newHealth) =>
         {
             amountHp = newHealth;

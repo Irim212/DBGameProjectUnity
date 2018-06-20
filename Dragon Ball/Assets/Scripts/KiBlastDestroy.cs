@@ -11,8 +11,6 @@ public class KiBlastDestroy : MonoBehaviour {
     public bool isDamaged;
     Renderer renderer;
 
-    Player player = new Player();
-
 
     private void Start()
     {
@@ -35,12 +33,12 @@ public class KiBlastDestroy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        if (coll.gameObject.name.Equals("Enemy")&& !isDamaged)
+        if (coll.gameObject.CompareTag("Enemy") && !isDamaged)
         {
             
             Debug.Log("Jest i on");
             EnemyThrash enemy = coll.gameObject.GetComponent<EnemyThrash>();
-            enemy.Damage(player.playerStats.kiBlastDmg);
+            enemy.Damage(PlayerPrefs.GetInt("KiDmg"));
             Destroy(gameObject);
             isDamaged = true;
 

@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Transform
-        if((Input.GetKeyDown(KeyCode.P) && Input.GetKeyDown(KeyCode.O) && Input.GetKeyDown(KeyCode.I)))
+        if(Input.GetKeyDown(KeyCode.K) && player.playerStats.currentKi >= 100)
         {
             anim.SetTrigger("Transform");
         }
@@ -76,11 +76,15 @@ public class PlayerController : MonoBehaviour
 
 
         //KI LOADING
-        if (Input.GetKeyDown(KeyCode.P) && Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             canWalk = false;
             kiHold = true;
             rb.velocity = new Vector2(0, rb.velocity.y);
+        }else if(Input.GetKeyUp(KeyCode.L))
+        {
+            kiHold = false;  
+            canWalk = true;
         }
 
         //KI BLAST

@@ -11,7 +11,7 @@ public class EnemyThrash : MonoBehaviour {
         public static int level = 1;
         public int MaxHP = 100 * level;
         private int _currentHealth;
-        public int damage = 10 * level;
+        public int damage = 2 * level;
 
         public static Action<int> enemyHealthChange = changeEnemyHealth;
 
@@ -38,6 +38,8 @@ public class EnemyThrash : MonoBehaviour {
     [SerializeField]
     private StatusIndicator statusIndicator;
 
+    public int fallBoundary = -20;
+
     void Start()
     {
         enemyStat.Init();
@@ -50,8 +52,11 @@ public class EnemyThrash : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+        if (transform.position.y <= fallBoundary)
+        {
+            Damage(10);
+        }
+    }
 
     public void Damage(int dmgAmount)
     {

@@ -44,6 +44,7 @@ public class EnemyMovementController : MonoBehaviour {
         BoxCollider2D cellCollider = GetComponent<BoxCollider2D>();
         rayCastOffset = cellCollider.bounds.extents.x / 2 + 0.3f;
         attackTrigger.enabled = false;
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -198,7 +199,7 @@ public class EnemyMovementController : MonoBehaviour {
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-            if (distanceToPlayer < 2f)
+            if (distanceToPlayer < 2.5f)
             {
                 atkMelee = true;
             }

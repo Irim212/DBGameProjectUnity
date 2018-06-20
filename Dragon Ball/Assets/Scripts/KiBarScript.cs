@@ -9,13 +9,14 @@ public class KiBarScript : MonoBehaviour {
 
     public Image content;
 
-    public float maxKi = Player.PlayerStats.MaxKi;
+    public float maxKi;
     public float amountKi = Player.PlayerStats._currentKi;
 
 
     // Use this for initialization
     void Start()
     {
+        maxKi = PlayerPrefs.GetInt("MaxKi");
         Player.PlayerStats.playerChange += (newKi) =>
         {
             amountKi = newKi;

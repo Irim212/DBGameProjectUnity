@@ -15,7 +15,7 @@ public class AttackTriggerEnemy : MonoBehaviour {
         {
             Debug.Log("WALE PLEJERA");
             Player player = col.gameObject.GetComponent<Player>();
-            player.Damage(10);
+            player.Damage(enemy.enemyStat.damage);
         }
     }
 }
